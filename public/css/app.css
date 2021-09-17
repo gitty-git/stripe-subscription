@@ -31872,6 +31872,12 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* CHECKBOX TOGGLE SWITCH */
+
+.toggle-checkbox:checked {
+  /* right: 0; */
+}
+
 @media (min-width: 640px){
   .sm\:container{
     width: 100%;
