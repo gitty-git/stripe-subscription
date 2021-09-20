@@ -5,7 +5,8 @@
     <div class=" text-5xl font-bold">Login</div>
     <div class="text-gray-500 text-xl">Or <a href="{{ route('register') }}" class="underline">start 10-day free trial</a></div>
 
-    <form action="{{ route('login') }}" class="mt-12">
+    <form action="{{ route('login') }}" class="mt-12" method="POST">
+        @csrf
         <div class="mt-6">
             <label for="email">Email</label>
             <input class="bg-gray-900  w-full p-2 border-2 border-gray-800 rounded-xl hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50" type="email" name="email">

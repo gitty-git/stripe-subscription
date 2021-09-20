@@ -2,9 +2,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* CHECKBOX TOGGLE SWITCH */
-
-.toggle-checkbox:checked {
-    /* right: 0; */
-}

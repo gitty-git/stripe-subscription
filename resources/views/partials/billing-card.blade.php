@@ -5,7 +5,7 @@
 
     <div class="flex items-end py-8"><span class="font-bold -mb-2 pb-0 text-6xl">${{ $price }}</span><span class="text-2xl text-gray-500">/mo</span></div>
 
-    <a href="{{ $checkout }}" class="w-full border-2  hover:border-gray-800 hover:text-white duration-150 hover:bg-gray-900 text-xl uppercase font-bold rounded-md p-2 flex justify-center text-gray-900 bg-white ">
+    <a href="{{ $checkout }}" class="w-full border-2 hover:border-gray-800 hover:text-white duration-150 hover:bg-gray-900 text-xl font-bold rounded-md p-2 flex justify-center text-gray-900 bg-white ">
         Checkout
     </a>
 
