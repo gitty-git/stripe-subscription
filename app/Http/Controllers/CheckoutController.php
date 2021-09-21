@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
@@ -15,8 +16,8 @@ class CheckoutController extends Controller
         return view('billing.checkout', compact('plan', 'intent'));
     }
 
-    public function processCheckout()
+    public function processCheckout(Request $request)
     {
-        //
+        dd($request->all());
     }
 }
