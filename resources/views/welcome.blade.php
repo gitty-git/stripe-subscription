@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @if (Route::has('login'))
-<div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+<div class="hidden fixed top-0 right-0 px-4 py-4 sm:block">
     @auth
     <a href="{{ url('/home') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Home</a>
     @else
@@ -14,10 +14,16 @@
 </div>
 @endif
 
-<div class="text-center flex flex-col items-center bg-gray-900">
+<div class="text-center flex flex-col px-4 items-center bg-gray-900">
+
+    @if(session('message'))
+    @include('partials.notification', ['message' => session('message'), 'colour' => 'blue'])
+    @endif
+
     <div class="font-bold mt-32 text-4xl md:text-6xl w-full mb-6">
         This site can only take your money.
     </div>
+
     <div class="text-gray-500 w-full text-2xl md:text-3xl">Choose a plan where you can give your money to me:</div>
 
     <div class="flex mt-24">
@@ -34,14 +40,13 @@
     <div class="mt-12 sm:gap-8 lg:mx-auto space-y-4 xl:w-2/3 sm:space-y-0 sm:grid md:grid-cols-2 lg:max-w-4xl sm:mt-16 xl:max-w-none xl:mx-0 2xl:grid-cols-3">
         @foreach($plans as $plan)
         @include('partials.billing-card', [
-            'times' => 5, 
-            'billing_type' => $plan->name, 
-            'price' => number_format($plan->price / 100, 0), 
-            'checkout' => route('checkout', $plan->slug)])
+        'times' => 5,
+        'billing_type' => $plan->name,
+        'price' => number_format($plan->price / 100, 0),
+        'checkout' => route('checkout', $plan->slug)])
         @endforeach
-        <!-- @include('partials.billing-card', ['times' => 5, 'billing_type' => 'First', 'price' => 5, 'checkout' => '#'])
-        @include('partials.billing-card', ['times' => 15, 'billing_type' => 'Second', 'price' => 15, 'checkout' => '#'])
-        @include('partials.billing-card', ['times' => 30, 'billing_type' => 'Third', 'price' => 30, 'checkout' => '#']) -->
     </div>
 </div>
+
+
 @endsection

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [BillingController::class, 'index']);
+Route::get('/', [BillingController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], fn() => 
     Route::get('checkout/{slug}', [CheckoutController::class, 'checkout'])->name('checkout'),
