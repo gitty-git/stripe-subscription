@@ -25,6 +25,10 @@
     </div>
 
     <div class="text-gray-500 w-full text-2xl md:text-3xl">Choose a plan where you can give your money to me:</div>
+    
+    @if (!auth()->user()->subscriptions()->active()->count())
+        <div class="mt-2 text-gray-500">(You are on free plan now)</div>
+    @endif
 
     <div class="flex mt-24">
         <div class="md:text-2xl text-xl mx-4 md:mx-8">Monthly billing</div>
@@ -38,12 +42,12 @@
     </div>
 
     <div class="mt-12 sm:gap-8 lg:mx-auto space-y-4 xl:w-2/3 sm:space-y-0 sm:grid md:grid-cols-2 lg:max-w-4xl sm:mt-16 xl:max-w-none xl:mx-0 2xl:grid-cols-3">
-        @foreach($plans as $plan)
-        @include('partials.billing-card', [
-        'times' => 5,
-        'billing_type' => $plan->name,
-        'price' => number_format($plan->price / 100, 0),
-        'checkout' => route('checkout', $plan->slug)])
+        @foreach($plans as $plan)            
+            @include('partials.billing-card', [
+            'times' => 5,
+            'billing_type' => $plan->name,
+            'price' => number_format($plan->price / 100, 0),
+            'checkout' => route('checkout', $plan->slug)])
         @endforeach
     </div>
 </div>
