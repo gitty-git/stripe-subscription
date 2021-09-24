@@ -10,6 +10,7 @@ class BillingController extends Controller
     public function index()
     {
         $plans = Plan::all();
-        return view('welcome', compact('plans'));
+        $currentPlan = auth()->user()->subscription('default')->stripe_price ?? NULL;
+        return view('billing.index', compact('plans', 'currentPlan'));
     }
 }

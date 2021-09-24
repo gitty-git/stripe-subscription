@@ -18,7 +18,7 @@ class CreatePlansTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->integer('price');
-            $table->string('stripe_plan_id');
+            $table->string('stripe_price_id');
             $table->timestamps();
         });
     }

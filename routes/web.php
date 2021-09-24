@@ -19,9 +19,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [BillingController::class, 'index'])->name('home');
+// Route::get('/', [BillingController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], fn() => 
+    Route::get('billing', [BillingController::class, 'index'])->name('billing'),
     Route::get('checkout/{slug}', [CheckoutController::class, 'checkout'])->name('checkout'),
     Route::post('checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process'),
 );

@@ -22,9 +22,9 @@ class CheckoutController extends Controller
 
         try {
             auth()->user()
-            ->newSubscription($plan->name, $plan->stripe_plan_id)
+            ->newSubscription('default', $plan->stripe_price_id)
             ->create($request->input('payment_method'));
-            return redirect()->route('home')->withMessage("You have been subscribed to $plan->name plan");
+            return redirect()->route('billing')->withMessage("You have been subscribed to $plan->name plan");
         }
         catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());

@@ -25,11 +25,14 @@
             Give ${{ number_format($plan->price / 100, 0) }}
         </button>
     </form>
+
+    <div id="loading"></div>
 </div>
 
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
+    const loading = document.getElementById('loading');
     const stripe = Stripe("{{ env('STRIPE_KEY') }}");
     const elements = stripe.elements();
     const cardElement = elements.create('card', {
@@ -59,8 +62,10 @@
     const cardButton = document.getElementById('card-button');
     const clientSecret = cardButton.dataset.secret;
 
-    cardButton.addEventListener('click', async (e) => {
+    cardButton.addEventListener('click', async (e) => {        
         e.preventDefault();
+        cardButton.disabled = true;
+        cardButton.innerHTML = 'Loading...';
         const {setupIntent, error} = await stripe.confirmCardSetup(
             clientSecret, {
                 payment_method: {
@@ -74,7 +79,10 @@
 
         if (error) {
             document.getElementById('payment-errors').innerHTML = error.message;
-        } else {
+            cardButton.disabled = false;
+            cardButton.innerHTML = 'Give ${{ number_format($plan->price / 100, 0) }}';
+        } else {            
+            cardButton.disabled = true;
             document.getElementById("payment_method").value = setupIntent.payment_method;
             document.getElementById('checkout-form').submit();
         }
