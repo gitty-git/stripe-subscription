@@ -5,14 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Plan;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
     public function checkout($slug)
     {
         $plan = Plan::where('slug', $slug)->firstOrFail();
+        $user = auth()->user();
+        $currentPlan = $user->subscription('default') ?? NULL;
+
+        if (!is_null($currentPlan) && $plan->stripe_price_id) {
+            $user->subscription('default')->swap($plan->stripe_price_id);
+            return redirect()->route('billing')->withMessage("You've changed your plan to $plan->name plan");
+        }
+
         $intent = auth()->user()->createSetupIntent();
+
         return view('billing.checkout', compact('plan', 'intent'));
     }
 
@@ -29,7 +37,5 @@ class CheckoutController extends Controller
         catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
         }
-
-        
     }
 }

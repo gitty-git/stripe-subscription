@@ -5,11 +5,12 @@
 
     <div class="flex items-end py-8"><span class="font-bold -mb-2 pb-0 text-6xl">${{ $price }}</span><span class="text-2xl text-gray-500">/mo</span></div>
 
-    @if($plan->stripe_price_id === $currentPlan)
-    <div class="flex justify-cente">
-        You've already subscribed for this plan.
-    </div>
-    
+    @if($plan->stripe_price_id === $currentPlan->stripe_price)
+        @if($currentPlan->onGracePeriod())
+            <p>Current plan canceled and will end in {{ $currentPlan->ends_at->diffForHumans() }} <a class="underline" href="{{ route('billing.resume') }}">Resume plan</a></p>
+        @else
+            <p>You've already subscribed for this plan. <a class="underline text-gray-500" href="{{ route('billing.resume') }}">Canlcel plan</a></p> 
+        @endif    
     @else
     <a href="{{ $checkout }}" class="w-full border-2 hover:border-gray-800 hover:text-white duration-150 hover:bg-gray-900 text-xl font-bold rounded-md p-2 flex justify-center text-gray-900 bg-white ">
         Checkout

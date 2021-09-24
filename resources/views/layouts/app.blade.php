@@ -12,9 +12,14 @@
 
 <body class="antialiased bg-gray-900 text-white font-mono px-4">
     @if (Route::has('login'))
-    <div class="hidden fixed top-0 right-0 px-4 py-4 sm:block">
+    <div class="hidden fixed top-0 right-0 px-4 py-4 sm:block z-20">
         @auth
-        <a href="{{ url('/home') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Home</a>
+        <a href="{{ url('/dashboard') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Dashboard</a>
+
+        <form class="inline text-2xl ml-4 text-gray-500 dark:text-gray-500" action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button class="underline">Logout</button>
+        </form>
         @else
         <a href="{{ route('login') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Log in</a>
 
@@ -35,4 +40,5 @@
 </footer>
 
 <script src="{{ asset('js/app.js')}}"></script>
+
 </html>
