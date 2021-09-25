@@ -11,12 +11,26 @@
 </head>
 
 <body class="antialiased bg-gray-900 text-white font-mono px-4">
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            @include('partials.notification', ['message' => $error, 'colour' => 'red'])
+        @endforeach
+    @endif
+
+    @if(session('message'))
+        @include('partials.notification', ['message' => session('message'), 'colour' => 'blue'])
+    @endif
     @if (Route::has('login'))
-    <div class="hidden fixed top-0 right-0 px-4 py-4 sm:block z-20">
+    <div class="hidden fixed top-0 space-x-4 right-0 px-8 py-4 sm:block z-20">
         @auth
+
+        <a href="{{ url('/') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Welcome page</a>
+
         <a href="{{ url('/dashboard') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Dashboard</a>
 
-        <form class="inline text-2xl ml-4 text-gray-500 dark:text-gray-500" action="{{ route('logout') }}" method="POST">
+        <a href="{{ url('/billing') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Billing</a>
+
+        <form class="inline text-2xl text-gray-500 dark:text-gray-500" action="{{ route('logout') }}" method="POST">
             @csrf
             <button class="underline">Logout</button>
         </form>
@@ -33,8 +47,8 @@
     @yield('content')
 </body>
 
-<footer class="text-left flex flex-col items-center text-gray-500 bg-gray-900">
-    <div class="my-12 sm:gap-8 lg:mx-auto space-y-4 xl:w-2/3 sm:space-y-0 lg:max-w-4xl sm:mt-16 xl:max-w-none xl:mx-0">
+<footer class="text-left flex flex-col border-t-2 border-gray-800 items-center text-gray-500 bg-gray-900">
+    <div class="my-12 sm:gap-8 lg:mx-auto space-y-4 xl:w-2/3 sm:space-y-0 lg:max-w-4xl sm:my-16 xl:max-w-none xl:mx-0">
         All rights reserved and so on and so forth...
     </div>
 </footer>

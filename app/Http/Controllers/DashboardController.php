@@ -9,9 +9,13 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $currentSubscription = auth()->user()->subscription('default')->stripe_price;        
-        $currentPlan = Plan::where('stripe_price_id', $currentSubscription)->firstOrFail();
-        return view('dashboard', compact('currentPlan'));
+        $user = auth()->user();
+        $currentSubscription = $user->subscription('default')->stripe_price;        
+        $currentPlan = Plan::where('stripe_price_id', $currentSubscription)->first() ?? NULL;
+        $paymentMethods = $user->paymentMethods();
+        $defaultPaymentMethod = $user->defaultPaymentMethod();
+        // dd($paymentMethods[0]);
+        return view('dashboard', compact('currentPlan', 'paymentMethods', 'defaultPaymentMethod'));
     }
     
 }

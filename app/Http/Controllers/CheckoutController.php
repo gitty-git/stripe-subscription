@@ -19,7 +19,7 @@ class CheckoutController extends Controller
             return redirect()->route('billing')->withMessage("You've changed your plan to $plan->name plan");
         }
 
-        $intent = auth()->user()->createSetupIntent();
+        $intent = $user->createSetupIntent();
 
         return view('billing.checkout', compact('plan', 'intent'));
     }

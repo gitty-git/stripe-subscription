@@ -16,6 +16,7 @@
 
         <input type="hidden" name="payment_method" id="payment_method" value="">
 
+        <label for="name">Name</label>
         <input id="card-holder-name" type="text" class="bg-gray-900 mb-8 w-full p-2 border-2 border-gray-800 rounded-xl hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50">
 
         <!-- Stripe Elements Placeholder -->
