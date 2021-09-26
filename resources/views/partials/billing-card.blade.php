@@ -5,9 +5,9 @@
 
     <div class="flex items-end py-8"><span class="font-bold -mb-2 pb-0 text-6xl">${{ $price }}</span><span class="text-2xl text-gray-500">/mo</span></div>
 
-    @if($plan->stripe_price_id === $currentPlan->stripe_price)
-        @if($currentPlan->onGracePeriod())
-            <p>Current plan canceled and will end in {{ $currentPlan->ends_at->diffForHumans() }} <a class="underline" href="{{ route('billing.resume') }}">Resume plan</a></p>
+    @if(!is_null($userSubscription) && $plan->stripe_price_id === $userSubscription->stripe_price)
+        @if($userSubscription->onGracePeriod())
+            <p>Current plan canceled and will end in {{ $userSubscription->ends_at->diffForHumans() }} <a class="underline" href="{{ route('billing.resume') }}">Resume plan</a></p>
         @else
             <p>You've already subscribed for this plan. <a class="underline text-gray-500" href="{{ route('billing.resume') }}">Canlcel plan</a></p> 
         @endif    

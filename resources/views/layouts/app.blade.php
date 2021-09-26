@@ -21,14 +21,12 @@
         @include('partials.notification', ['message' => session('message'), 'colour' => 'blue'])
     @endif
     @if (Route::has('login'))
-    <div class="hidden fixed top-0 space-x-4 right-0 px-8 py-4 sm:block z-20">
+    <div class="hidden fixed bg-gray-900 w-full top-0 space-x-4 right-0 px-8 py-4 sm:flex justify-end z-10 shadow-xl">
         @auth
 
-        <a href="{{ url('/') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Welcome page</a>
+        <a href="{{ url('/') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Welcome Page</a>
 
         <a href="{{ url('/dashboard') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Dashboard</a>
-
-        <a href="{{ url('/billing') }}" class="text-2xl text-gray-500 dark:text-gray-500 underline">Billing</a>
 
         <form class="inline text-2xl text-gray-500 dark:text-gray-500" action="{{ route('logout') }}" method="POST">
             @csrf

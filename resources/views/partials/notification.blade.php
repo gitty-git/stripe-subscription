@@ -1,4 +1,4 @@
-    <div class="text-white z-10 opacity-100 duration-500 absolute top-0 left-0 text-center bg-{{ $colour }}-500" id="session-message">
+    <div class="text-white z-20 opacity-100 duration-500 fixed top-0 left-0 text-center bg-{{ $colour }}-500" id="session-message">
         <div class="pt-1 px-4 flex">
             {{ $message }}
             <div class="ml-4 text-sm cursor-pointer flex justify-center items-center rounded-full" id="close-session-message">&#10006</div>

@@ -15,7 +15,7 @@ class CheckoutController extends Controller
         $currentPlan = $user->subscription('default') ?? NULL;
 
         if (!is_null($currentPlan) && $plan->stripe_price_id) {
-            $user->subscription('default')->swap($plan->stripe_price_id);
+            $currentPlan->swap($plan->stripe_price_id);
             return redirect()->route('billing')->withMessage("You've changed your plan to $plan->name plan");
         }
 
@@ -30,8 +30,10 @@ class CheckoutController extends Controller
 
         try {
             auth()->user()
-            ->newSubscription('default', $plan->stripe_price_id)
-            ->create($request->input('payment_method'));
+                ->newSubscription('default', $plan->stripe_price_id)
+                ->trialDays(14)
+                ->create($request->input('payment_method'));
+
             return redirect()->route('billing')->withMessage("You have been subscribed to $plan->name plan");
         }
         catch (Exception $e) {
