@@ -31,7 +31,7 @@ class CheckoutController extends Controller
         try {
             auth()->user()
                 ->newSubscription('default', $plan->stripe_price_id)
-                ->trialDays(14)
+                // ->trialDays(14)
                 ->create($request->input('payment_method'));
 
             return redirect()->route('billing')->withMessage("You have been subscribed to $plan->name plan");

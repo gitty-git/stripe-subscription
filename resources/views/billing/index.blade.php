@@ -2,17 +2,16 @@
 @section('content')
 <div class="text-center my-32 flex flex-col px-4 items-center bg-gray-900">
     <div class="font-bold text-4xl md:text-5xl w-full mb-6">
-    Choose a plan where you can give your money to me:
-    </div>
-    
-    <div class="text-gray-500 w-full text-2xl md:text-3xl">
-        @if (is_null($userSubscription))
-        <p>You are on free plan now</p>
-        @elseif(!is_null($userSubscription))
-        <p>Your current plan is <span class="font-bold">{{ $currentPlan->name }}</span>@if($userSubscription->onTrial()), the trial version of which will end in {{ $userSubscription->trial_ends_at->diffForHumans() }}@endif.</p>
-        @endif
+        Choose a plan where you can give your money to me:
     </div>
 
+    <div class="text-gray-500 w-full text-2xl md:text-3xl">
+        @if (is_null($userSubscription))
+            <p>You are on free plan now</p>
+        @elseif(!is_null($userSubscription))
+            <p>Your current plan is <span class="font-bold">{{ $currentPlan->name }}</span>@if($userSubscription->onTrial()), the trial version of which will end in {{ $userSubscription->trial_ends_at->diffForHumans() }}@endif.</p>
+        @endif
+    </div>
 
     <div class="flex mt-24">
         <div class="md:text-2xl text-xl mx-4 md:mx-8">Monthly billing</div>

@@ -24,6 +24,7 @@
                     <th class="p-4"></th>
                 </tr>
             </thead>
+            
             <tbody>
                 @foreach($paymentMethods as $paymentMethod)
                 <tr>
