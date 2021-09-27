@@ -31,8 +31,6 @@
             Add payment method
         </button>
     </form>
-
-    <div id="loading"></div>
 </div>
 
 <script src="https://js.stripe.com/v3/"></script>
@@ -40,7 +38,6 @@
 <script>
     const checkoutForm = document.getElementById('checkout-form');
     const paymentErrors = document.getElementById('payment-errors');
-    const loading = document.getElementById('loading');
     const stripe = Stripe("{{ env('STRIPE_KEY') }}");
     const elements = stripe.elements();
     const cardElement = elements.create('card', {
@@ -76,7 +73,7 @@
             paymentErrors.innerHTML = "Name field is required.";
         } else {            
             cardButton.disabled = true;
-            cardButton.innerHTML = 'Loading...';
+            cardButton.innerHTML = 'Processing...';
             const {
                 setupIntent,
                 error

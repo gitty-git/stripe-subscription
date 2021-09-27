@@ -13,11 +13,10 @@
         <div class="pb-4 text-red-300 text-sm" id="payment-errors"></div>
 
         <input type="hidden" name="billing_plan_id" value="{{ $plan->id }}" />
-
         <input type="hidden" name="payment_method" id="payment_method" value="">
 
         <label for="name">Name</label>
-        <input id="card-holder-name" type="text" class="bg-gray-900 mb-8 w-full p-2 border-2 border-gray-800 rounded-xl hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50">
+        <input name="name" id="card-holder-name" type="text" class="bg-gray-900 mb-8 w-full p-2 border-2 border-gray-800 rounded-xl hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50">
 
         <!-- Stripe Elements Placeholder -->
         <div id="card-element" class="mb-4"></div>
@@ -26,14 +25,11 @@
             Give ${{ number_format($plan->price / 100, 0) }}
         </button>
     </form>
-
-    <div id="loading"></div>
 </div>
 
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>
-    const loading = document.getElementById('loading');
     const stripe = Stripe("{{ env('STRIPE_KEY') }}");
     const elements = stripe.elements();
     const cardElement = elements.create('card', {
@@ -66,7 +62,7 @@
     cardButton.addEventListener('click', async (e) => {        
         e.preventDefault();
         cardButton.disabled = true;
-        cardButton.innerHTML = 'Loading...';
+        cardButton.innerHTML = 'Processing...';
         const {setupIntent, error} = await stripe.confirmCardSetup(
             clientSecret, {
                 payment_method: {

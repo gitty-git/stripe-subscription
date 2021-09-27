@@ -17,17 +17,13 @@ class ChargeSucceededJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public WebhookCall $webhookCall;
-
-    public function __construct(WebhookCall $webhookCall)
-    {
-        $this->webhookCall = $webhookCall;
-    }
+    public function __construct(public WebhookCall $webhookCall) {}
 
     public function handle()
     {
         $charge = $this->webhookCall->payload['data']['object'];
         $user = User::where('stripe_id', $charge['customer'])->first();
+        
         if ($user) {
             $payment = Payment::create([
                 'user_id' => $user->id,
