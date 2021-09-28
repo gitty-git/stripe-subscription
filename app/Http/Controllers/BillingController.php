@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use App\Models\Plan;
-use Exception;
-use Illuminate\Http\Request;
+use App\Services\Invoice;
 
 class BillingController extends Controller
 {
     public function index()
-    {
+    {        
         $plans = Plan::all();
         $userSubscription = auth()->user()->subscription('default') ?? NULL;
         $currentPlan = NULL;
 
         if (!is_null($userSubscription)) {
             $currentPlan = Plan::where('stripe_price_id', $userSubscription->stripe_price)->first() ?? NULL;
-        }        
+        }
 
         return view('billing.index', compact('plans', 'userSubscription', 'currentPlan'));
     }

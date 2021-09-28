@@ -32,7 +32,8 @@ class ChargeSucceededJob implements ShouldQueue
                 'total' => $charge['amount'],
             ]);
 
-            $user->notify(new ChargeSuccessNotification($payment));
+            $invoice = 'asfd';
+            $user->notify(new ChargeSuccessNotification($payment, $invoice));
         }
     }
 }

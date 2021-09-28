@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Plan;
 use Exception;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Exceptions\IncompletePayment;
 
 class CheckoutController extends Controller
 {
@@ -36,7 +37,7 @@ class CheckoutController extends Controller
 
             return redirect()->route('billing')->withMessage("You have been subscribed to $plan->name plan");
         }
-        catch (Exception $e) {
+        catch (IncompletePayment  $e) {
             return redirect()->back()->withErrors($e->getMessage());
         }
     }
